@@ -10,10 +10,27 @@
     <Window.Background>
         <SolidColorBrush Color="SlateGray"/>
     </Window.Background>
+    
     <Window.DataContext>
         <vm:MainVM/>
     </Window.DataContext>
     <Grid>
-        
+        <TabControl Background="SlateGray">
+            <TabItem Header = "Main View" Background="LightGray">
+                <Label Content="Main page comes here"/>
+            </TabItem>
+            <TabItem Header = "Visualizer" Background="LightGray">
+                <Label Content="Visualizer page comes here"/>
+            </TabItem>
+            <TabItem Header = "Post to Discord" Background="LightGray">
+                <Label Content="Post to Discord page comes here"/>
+            </TabItem>
+            <TabItem Header="Info" Background="LightGray">
+                <TextBlock Margin="10">
+                    <TextBlock Text="Github repository: "/>
+                    <Hyperlink Command="{Binding OpenGithubRepoCommand}">Click here</Hyperlink>
+                </TextBlock>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

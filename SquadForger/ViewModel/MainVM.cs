@@ -9,6 +9,11 @@ namespace SquadForger.ViewModel
         public string WindowTitle { get; private set; } = $"Squad Forger v0.0.1";
         public RelayCommand OpenGithubRepoCommand { get; private set; }
 
+        public MainVM()
+        {
+            OpenGithubRepoCommand = new RelayCommand(OpenGithubRepo);
+        }
+
         private void OpenGithubRepo()
         {
             Process.Start(new ProcessStartInfo("https://github.com/League-of-DAE-Legends/SquadForger"));
