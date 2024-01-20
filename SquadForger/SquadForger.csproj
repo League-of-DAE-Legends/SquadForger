@@ -126,8 +126,12 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SquadVM.cs" />
+    <Compile Include="ViewModel\VisualizeVM.cs" />
     <Compile Include="View\SquadView.xaml.cs">
       <DependentUpon>SquadView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VisualizeView.xaml.cs">
+      <DependentUpon>VisualizeView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +146,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\SquadView.xaml" />
+    <Page Include="View\VisualizeView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

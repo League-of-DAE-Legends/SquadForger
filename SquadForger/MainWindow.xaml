@@ -20,7 +20,7 @@
                 <Frame Content="{Binding SquadPage}" NavigationUIVisibility="Hidden" />
             </TabItem>
             <TabItem Header = "Visualizer" Background="LightGray">
-                <Label Content="Visualizer page comes here"/>
+                <Frame Content="{Binding VisualizePage}" NavigationUIVisibility="Hidden" />
             </TabItem>
             <TabItem Header = "Post to Discord" Background="LightGray">
                 <Label Content="Post to Discord page comes here"/>
