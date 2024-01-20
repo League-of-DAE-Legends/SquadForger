@@ -16,8 +16,8 @@
     </Window.DataContext>
     <Grid>
         <TabControl Background="SlateGray">
-            <TabItem Header = "Main View" Background="LightGray">
-                <Label Content="Main page comes here"/>
+            <TabItem Header = "Squads" Background="LightGray">
+                <Frame Content="{Binding SquadPage}" NavigationUIVisibility="Hidden" />
             </TabItem>
             <TabItem Header = "Visualizer" Background="LightGray">
                 <Label Content="Visualizer page comes here"/>
