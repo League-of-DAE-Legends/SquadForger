@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
+using SquadForger.Model;
 
 namespace SquadForger.Repository
 {
     public class CsvChallongeParser : ITeamNamesRepository
     {
-        public List<string> GetTeamNames()
+        public List<Team> GetTeams()
         {
-            List<string> teamNames = new List<string>();
+            List<Team> teamNames = new List<Team>();
 
             try
             {
@@ -44,7 +45,11 @@ namespace SquadForger.Repository
                                 if (fields.Length >=2)
                                 {
                                     //second column is team name
-                                    teamNames.Add(fields[1]);
+                                    var team = new Team
+                                    {
+                                        TeamName = fields[1]
+                                    };
+                                    teamNames.Add(team);
                                 }
                             }
                         }

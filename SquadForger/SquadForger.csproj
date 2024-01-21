@@ -126,6 +126,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Team.cs" />
     <Compile Include="Repository\CsvChallongeParser.cs" />
     <Compile Include="Repository\ITeamNamesRepository.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
@@ -183,7 +184,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

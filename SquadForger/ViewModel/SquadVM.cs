@@ -17,7 +17,7 @@ namespace SquadForger.ViewModel
 
         private void ReadTeamsFromCsv()
         {
-            var teams = TeamNamesRepository.GetTeamNames();
+            var teams = TeamNamesRepository.GetTeams();
         }
     }
 }
