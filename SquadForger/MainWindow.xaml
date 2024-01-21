@@ -4,9 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SquadForger"
+        xmlns:vm ="clr-namespace:SquadForger.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding WindowTitle}" Height="450" Width="800">
+    <Window.Background>
+        <SolidColorBrush Color="SlateGray"/>
+    </Window.Background>
+    
+    <Window.DataContext>
+        <vm:MainVM/>
+    </Window.DataContext>
     <Grid>
-        
+        <TabControl Background="SlateGray">
+            <TabItem Header = "Squads" Background="LightGray">
+                <Frame Content="{Binding SquadPage}" NavigationUIVisibility="Hidden" />
+            </TabItem>
+            <TabItem Header = "Visualizer" Background="LightGray">
+                <Frame Content="{Binding VisualizePage}" NavigationUIVisibility="Hidden" />
+            </TabItem>
+            <TabItem Header = "Post to Discord" Background="LightGray">
+                <Label Content="Post to Discord page comes here"/>
+            </TabItem>
+            <TabItem Header="Info" Background="LightGray">
+                <TextBlock Margin="10">
+                    <TextBlock Text="Github repository: "/>
+                    <Hyperlink Command="{Binding OpenGithubRepoCommand}">Click here</Hyperlink>
+                </TextBlock>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
