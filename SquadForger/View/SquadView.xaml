@@ -25,8 +25,8 @@
                 <Button Content="Select file" Margin="10" Width="100" Command="{Binding SelectFileCommand}"></Button>
             </TextBlock>
             <TextBlock VerticalAlignment="Center">
-                <TextBox TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="Add teams manually separated by ," Height="200" Width="200" Margin="10"></TextBox>
-                <Button Content="Add" Margin="10" Width="50" Height="30"></Button>
+                <TextBox TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding TeamsInput}" Height="200" Width="200" Margin="10"></TextBox>
+                <Button Content="Add" Margin="10" Width="50" Height="30" Command="{Binding AddTeamsCommand}"></Button>
                 <Button Content="Clear" Margin="10" Width="50" Height="30"></Button>
             </TextBlock>
             <TextBlock VerticalAlignment="Center">
@@ -41,7 +41,13 @@
         <StackPanel Grid.Column="1" HorizontalAlignment="Center">
             <Label Content="Teams" HorizontalAlignment="Center"></Label>
             <Border BorderBrush="Black" Background="CadetBlue" BorderThickness="1" Padding="10" Width="300" Height="300">
-                <TextBlock HorizontalAlignment="Center" Text="Teams come here"/>
+                <ItemsControl ItemsSource="{Binding Teams}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Foreground="Black" Text="{Binding TeamName}" Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Border>
         </StackPanel>
        
