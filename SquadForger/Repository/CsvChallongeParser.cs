@@ -6,9 +6,9 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace SquadForger.Repository
 {
-    public class CsvChallongeParser
+    public class CsvChallongeParser : ITeamNamesRepository
     {
-        public static List<string> ReadTeamNames()
+        public List<string> GetTeamNames()
         {
             List<string> teamNames = new List<string>();
 
