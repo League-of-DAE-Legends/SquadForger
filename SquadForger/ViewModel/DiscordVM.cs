@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text;
 using Discord.Webhook;
-using System.Resources;
 using CommunityToolkit.Mvvm.Input;
+using System.Configuration;
+using System;
+using System.Windows;
 
 namespace SquadForger.ViewModel
 {
@@ -19,7 +21,9 @@ namespace SquadForger.ViewModel
 		public DiscordVM()
 		{
 			PostToDiscordCommand = new RelayCommand(PostToDiscord);
-			TextToSend = GetLongTestText();
+
+			// Temporary!
+			TextToSend = "This is a test message";
 		}
 
 		private async void PostToDiscord()
@@ -29,9 +33,16 @@ namespace SquadForger.ViewModel
 				return;
 			}
 			
-			string webhooklink = "Extract from PrivateData.config";
-			DiscordWebhookClient webhook = new DiscordWebhookClient(webhooklink);
-			await webhook.SendMessageAsync(TextToSend);
+			try
+            {
+				string webhooklink = ConfigurationManager.AppSettings.Get("dev_webhook");
+				DiscordWebhookClient webhook = new DiscordWebhookClient(webhooklink);
+				await webhook.SendMessageAsync(TextToSend);
+            }
+			catch (Exception e)
+            {
+				MessageBox.Show($"Exception: {e.Message}");
+            }
 		}
 
 		private static string GetLongTestText(int lines = 30)
