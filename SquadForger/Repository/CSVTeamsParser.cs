@@ -9,9 +9,9 @@ namespace SquadForger.Repository
 {
     public class CSVTeamsParser : ITeamNamesRepository
     {
+        public string ColumnName { get; set; }
         
-        
-        public List<Team> GetTeams(string columnName)
+        public List<Team> GetTeams()
         {
             List<Team> teamNames = new List<Team>();
 
@@ -39,7 +39,7 @@ namespace SquadForger.Repository
                             string[] headers = parser.ReadLine().Split(',');
                             
                             // Find the index of the specified column
-                            int columnIndex = Array.IndexOf(headers, columnName);
+                            int columnIndex = Array.IndexOf(headers, ColumnName);
                             if (columnIndex == -1)
                             {
                                 throw new Exception("Column name not found");
