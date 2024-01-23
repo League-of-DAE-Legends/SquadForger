@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,7 +11,7 @@ namespace SquadForger.ViewModel
 {
     public class SquadVM : ObservableObject
     {
-        public List<Team> Teams { get; set; } = new List<Team>();
+        public ObservableCollection<Team> Teams { get; set; } = new ObservableCollection<Team>();
         
         public RelayCommand SelectFileCommand { get; set; }
         public RelayCommand AddTeamsCommand { get; set; }
@@ -27,7 +28,10 @@ namespace SquadForger.ViewModel
 
         private void ReadTeamsFromCsv()
         {
-            Teams.AddRange(TeamNamesRepository.GetTeams());
+            foreach (var team in TeamNamesRepository.GetTeams())
+            {
+                Teams.Add(team);
+            }
         }
 
         private void AddTeams()
@@ -38,9 +42,11 @@ namespace SquadForger.ViewModel
             // Create Team objects from team names
             foreach (string teamName in teamNames)
             {
-                Teams.Add(new Team { TeamName = teamName });
+                var temp = new Team{ TeamName = teamName };
+                var t = temp;
+                Teams.Add(temp);
             }
-            OnPropertyChanged(nameof(Teams));
+            
         }
     }
 }
