@@ -5,6 +5,6 @@ namespace SquadForger.Repository
 {
 	public interface ITeamNamesRepository
 	{
-		List<Team> GetTeams();
+		List<Team> GetTeams(string columnName);
 	}
 }

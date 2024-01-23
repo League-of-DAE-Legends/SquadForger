@@ -127,7 +127,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Team.cs" />
-    <Compile Include="Repository\CsvChallongeParser.cs" />
+    <Compile Include="Repository\CSVTeamsParser.cs" />
     <Compile Include="Repository\ITeamNamesRepository.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SquadVM.cs" />

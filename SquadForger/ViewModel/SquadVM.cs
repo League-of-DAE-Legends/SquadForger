@@ -8,7 +8,7 @@ namespace SquadForger.ViewModel
     public class SquadVM : ObservableObject
     {
         public RelayCommand SelectFileCommand { get; private set; }
-        private ITeamNamesRepository TeamNamesRepository { get; set; } = new CsvChallongeParser();
+        private ITeamNamesRepository TeamNamesRepository { get; set; } = new CSVTeamsParser();
 
         public SquadVM()
         {
@@ -17,7 +17,7 @@ namespace SquadForger.ViewModel
 
         private void ReadTeamsFromCsv()
         {
-            var teams = TeamNamesRepository.GetTeams();
+            var teams = TeamNamesRepository.GetTeams("Participant Username");
         }
     }
 }

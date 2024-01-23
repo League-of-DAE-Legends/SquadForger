@@ -7,9 +7,11 @@ using SquadForger.Model;
 
 namespace SquadForger.Repository
 {
-    public class CsvChallongeParser : ITeamNamesRepository
+    public class CSVTeamsParser : ITeamNamesRepository
     {
-        public List<Team> GetTeams()
+        
+        
+        public List<Team> GetTeams(string columnName)
         {
             List<Team> teamNames = new List<Team>();
 
@@ -32,22 +34,27 @@ namespace SquadForger.Repository
                         {
                             //delimiter for csv is comma
                             parser.Delimiters = new string[] { "," };
-
-                            if (!parser.EndOfData)
+                            
+                            // Read the header line
+                            string[] headers = parser.ReadLine().Split(',');
+                            
+                            // Find the index of the specified column
+                            int columnIndex = Array.IndexOf(headers, columnName);
+                            if (columnIndex == -1)
                             {
-                                parser.ReadLine();
+                                throw new Exception("Column name not found");
                             }
 
                             while (!parser.EndOfData)
                             {
                                 string[] fields = parser.ReadFields();
 
-                                if (fields.Length >=2)
+                                if (fields.Length >=columnIndex)
                                 {
                                     //second column is team name
                                     var team = new Team
                                     {
-                                        TeamName = fields[1]
+                                        TeamName = fields[columnIndex]
                                     };
                                     teamNames.Add(team);
                                 }
