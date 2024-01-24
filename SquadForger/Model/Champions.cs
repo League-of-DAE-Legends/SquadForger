@@ -11,31 +11,41 @@ namespace SquadForger.Model
     {
         public async static Task<Champions> GetFallBackAsync()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                string endpoint = $"https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/champion.json";
-                try
-                {
-                    var response = await client.GetAsync(endpoint);
+            // This needs to read from a JSON file embedded into the project.
 
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new HttpRequestException(response.ReasonPhrase);
-                    }
-
-                    string json = await response.Content.ReadAsStringAsync();
-                    var champions = JsonConvert.DeserializeObject<Champions>(json);
-
-                    return champions;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Exception! {ex.Message}");
-                }
-            }
+            //string json = await response.Content.ReadAsStringAsync();
+            //var champions = JsonConvert.DeserializeObject<Champions>(json);
 
             return null;
         }
+
+        public async static Task<Champions> GetChampionsAsync(LeagueVersion leagueVersion)
+        {
+			using (HttpClient client = new HttpClient())
+			{
+				string endpoint = $"https://ddragon.leagueoflegends.com/cdn/{leagueVersion.Season}.{leagueVersion.PatchNumber}.{leagueVersion.SubpatchNumber}/data/en_US/champion.json";
+				try
+				{
+					var response = await client.GetAsync(endpoint);
+
+					if (!response.IsSuccessStatusCode)
+					{
+						throw new HttpRequestException(response.ReasonPhrase);
+					}
+
+					string json = await response.Content.ReadAsStringAsync();
+					var champions = JsonConvert.DeserializeObject<Champions>(json);
+
+					return champions;
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Exception! {ex.Message}");
+				}
+			}
+
+			return null;
+		}
 
         [JsonExtensionData]
         private IDictionary<string, Newtonsoft.Json.Linq.JToken> _championData; // Source: ChatGPT
