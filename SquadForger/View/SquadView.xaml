@@ -22,7 +22,7 @@
         
         <StackPanel Orientation="Vertical">
             <TextBlock HorizontalAlignment="Left">
-                <Button Content="Select file" Margin="10" Width="100"></Button>
+                <Button Content="Select file" Margin="10" Width="100" Command="{Binding SelectFileCommand}"></Button>
                 <Label Content="Selected File name binding" FontSize="12" Margin="10"></Label>
             </TextBlock>
             <TextBlock VerticalAlignment="Center">
