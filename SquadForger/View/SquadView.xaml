@@ -23,14 +23,16 @@
         <StackPanel Orientation="Vertical">
             <TextBlock HorizontalAlignment="Left">
                 <Button Content="Select file" Margin="10" Width="100" Command="{Binding SelectFileCommand}"></Button>
-                <Label Content="Selected File name binding" FontSize="12" Margin="10"></Label>
             </TextBlock>
             <TextBlock VerticalAlignment="Center">
                 <TextBox TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="Add teams manually separated by ," Height="200" Width="200" Margin="10"></TextBox>
                 <Button Content="Add" Margin="10" Width="50" Height="30"></Button>
                 <Button Content="Clear" Margin="10" Width="50" Height="30"></Button>
             </TextBlock>
-            <Button Content="Safe Generate" Margin="10"></Button>
+            <TextBlock VerticalAlignment="Center">
+                <TextBox MaxLength="3" Width="30" Text="15" Height="20" Margin="10"></TextBox>
+                <Button Content="Safe Generate" Margin="10"></Button>
+            </TextBlock>
             <TextBlock>
                 <TextBox  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Width="230" Text="Enter valid season and patch (ie 14.1.1)" Height="30" Margin="10"></TextBox>
                 <Button Content="Custom Generate" Margin="10" Height="30"></Button>
