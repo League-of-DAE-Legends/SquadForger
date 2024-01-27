@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,8 +14,20 @@ namespace SquadForger.Model
         {
             // This needs to read from a JSON file embedded into the project.
 
-            //string json = await response.Content.ReadAsStringAsync();
-            //var champions = JsonConvert.DeserializeObject<Champions>(json);
+            try
+            {
+                using (StreamReader reader = new StreamReader("../../Resources/champion.json"))
+                {
+                    string json = await reader.ReadToEndAsync();
+                    Champions champions = JsonConvert.DeserializeObject<Champions>(json);
+
+                    return champions;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Exception! {ex.Message}");
+            }
 
             return null;
         }

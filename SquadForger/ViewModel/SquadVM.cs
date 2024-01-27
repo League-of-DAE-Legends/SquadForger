@@ -18,10 +18,24 @@ namespace SquadForger.ViewModel
 
         private async void GetFallBackChampionNames()
         {
+            if (_lastVersionUsed.Season == -1 &&
+                _lastVersionUsed.PatchNumber == -1 &&
+                _lastVersionUsed.SubpatchNumber == -1)
+            {
+                return;
+            }
+            _lastVersionUsed.Season = -1;
+            _lastVersionUsed.PatchNumber = -1;
+            _lastVersionUsed.SubpatchNumber = -1;
+
             List<string> temp = new List<string>();
             try
             {
                 Champions champions = await Champions.GetFallBackAsync();
+                if (champions == null)
+                {
+                    throw new ArgumentNullException("Failed to get champions");
+                }
                 foreach (KeyValuePair<string,Champion> kvp in champions.data) 
                 {
 				    temp.Add(kvp.Key);
@@ -30,6 +44,7 @@ namespace SquadForger.ViewModel
             catch (Exception ex) 
             { 
                 MessageBox.Show($"Exception: {ex.Message}");
+                return;
             }
             _championNames.Clear();
             _championNames.AddRange(temp);
@@ -50,6 +65,10 @@ namespace SquadForger.ViewModel
 			try
 			{
 				Champions champions = await Champions.GetChampionsAsync(_lastVersionUsed);
+                if (champions == null)
+                {
+                    throw new ArgumentNullException("Failed to get champions");
+                }
 				foreach (KeyValuePair<string, Champion> kvp in champions.data)
 				{
 					temp.Add(kvp.Key);
@@ -58,6 +77,7 @@ namespace SquadForger.ViewModel
 			catch (Exception ex)
 			{
 				MessageBox.Show($"Exception: {ex.Message}");
+                return;
 			}
 			_championNames.Clear();
 			_championNames.AddRange(temp);
