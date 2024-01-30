@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SquadForger.Model;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,31 @@ namespace SquadForger.ViewModel
     public class SquadVM : ObservableObject
     {
         private readonly List<string> _championNames = new List<string>();
-        private LeagueVersion _lastVersionUsed = new LeagueVersion(14,1);
+        private LeagueVersion _lastVersionUsed;
+
+        public RelayCommand CustomGenerateCommand { get; private set; }
+        public string LeagueVersionText { get; set; } = "Enter valid season and patch (ie 14.1.1)";
 
         public SquadVM()
         {
+            CustomGenerateCommand = new RelayCommand(CustomGenerate);
+
             GetFallBackChampionNames();
+        }
+
+        private void CustomGenerate()
+        {
+            LeagueVersion newVersion;
+            try
+            {
+                newVersion = LeagueVersionText.ParseIntoLeagueVersion();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Invalid league version!");
+                return;
+            }
+            GetChampionNames(newVersion);
         }
 
         private async void GetFallBackChampionNames()
@@ -24,9 +45,7 @@ namespace SquadForger.ViewModel
             {
                 return;
             }
-            _lastVersionUsed.Season = -1;
-            _lastVersionUsed.PatchNumber = -1;
-            _lastVersionUsed.SubpatchNumber = -1;
+            _lastVersionUsed = new LeagueVersion(-1,-1,-1);
 
             List<string> temp = new List<string>();
             try
@@ -50,17 +69,16 @@ namespace SquadForger.ViewModel
             _championNames.AddRange(temp);
         }
 
-        private async void GetChampionNames(int season, int patchNumber, int subPatchNumber = 1)
+        private async void GetChampionNames(LeagueVersion leagueVersion)
         {
-            if (_lastVersionUsed.Season == season && 
-                _lastVersionUsed.PatchNumber == patchNumber && 
-                _lastVersionUsed.SubpatchNumber == subPatchNumber) 
+            if (_lastVersionUsed.Season == leagueVersion.Season && 
+                _lastVersionUsed.PatchNumber == leagueVersion.PatchNumber && 
+                _lastVersionUsed.SubpatchNumber == leagueVersion.SubpatchNumber) 
             {
                 return;
             }
-			_lastVersionUsed.Season = season;
-            _lastVersionUsed.PatchNumber = patchNumber;
-            _lastVersionUsed.SubpatchNumber = subPatchNumber;
+            _lastVersionUsed = leagueVersion;
+
 			List<string> temp = new List<string>();
 			try
 			{
