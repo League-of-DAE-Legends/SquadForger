@@ -27,7 +27,7 @@
             <TextBlock VerticalAlignment="Center">
                 <TextBox TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding TeamsInput}" Height="200" Width="200" Margin="10"></TextBox>
                 <Button Content="Add" Margin="10" Width="50" Height="30" Command="{Binding AddTeamsCommand}"></Button>
-                <Button Content="Clear" Margin="10" Width="50" Height="30"></Button>
+                <Button Content="Clear" Margin="10" Width="50" Height="30" Command="{Binding ClearTeamsCommand}"/>
             </TextBlock>
             <TextBlock VerticalAlignment="Center">
                 <TextBox MaxLength="3" Width="30" Text="15" Height="20" Margin="10"></TextBox>

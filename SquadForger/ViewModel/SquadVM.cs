@@ -11,10 +11,11 @@ namespace SquadForger.ViewModel
 {
     public class SquadVM : ObservableObject
     {
-        public ObservableCollection<Team> Teams { get; set; } = new ObservableCollection<Team>();
+        public ObservableCollection<Team> Teams { get; private set; } = new ObservableCollection<Team>();
         
-        public RelayCommand SelectFileCommand { get; set; }
-        public RelayCommand AddTeamsCommand { get; set; }
+        public RelayCommand SelectFileCommand { get; private set; }
+        public RelayCommand AddTeamsCommand { get; private set; }
+        public RelayCommand ClearTeamsCommand { get; private set; }
         private ITeamNamesRepository TeamNamesRepository { get; set; } = new CsvChallongeParser();
         
         public string TeamsInput { get; set; }
@@ -23,12 +24,13 @@ namespace SquadForger.ViewModel
         {
             SelectFileCommand = new RelayCommand(ReadTeamsFromCsv);
             AddTeamsCommand = new RelayCommand(AddTeams);
+            ClearTeamsCommand = new RelayCommand(ClearTeams);
             TeamsInput = "Enter team names, separated by commas";
         }
 
         private void ReadTeamsFromCsv()
         {
-            foreach (var team in TeamNamesRepository.GetTeams())
+            foreach (Team team in TeamNamesRepository.GetTeams())
             {
                 Teams.Add(team);
             }
@@ -42,11 +44,13 @@ namespace SquadForger.ViewModel
             // Create Team objects from team names
             foreach (string teamName in teamNames)
             {
-                var temp = new Team{ TeamName = teamName };
-                var t = temp;
-                Teams.Add(temp);
+                Teams.Add(new Team { TeamName = teamName });
             }
-            
+        }
+
+        private void ClearTeams()
+        {
+            Teams.Clear();
         }
     }
 }
