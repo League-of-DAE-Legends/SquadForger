@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SquadForger.Model;
 using SquadForger.Repository;
+using SquadForger.Services;
 
 
 namespace SquadForger.ViewModel
@@ -28,6 +30,8 @@ namespace SquadForger.ViewModel
         public RelayCommand CustomGenerateCommand { get; private set; }
         public string LeagueVersionText { get; set; } = "Enter valid season and patch (ie 14.1.1)";
 
+        private IRandomPicker _randomPicker = new DefaultChampionPicker();
+
         public SquadVM()
         {
             SelectFileCommand = new RelayCommand(ReadTeamsFromCsv);
@@ -36,10 +40,11 @@ namespace SquadForger.ViewModel
             TeamsInput = "Enter team names, separated by commas";
             CustomGenerateCommand = new RelayCommand(CustomGenerate);
 
-            GetFallBackChampionNames();
+            Teams.CollectionChanged += (s, e) => ServiceLocator.Instance.EventAggregator.Publish(new TeamsUpdatedEvent(Teams.ToList()));
+           // GetFallBackChampionNames();
         }
 
-        private void CustomGenerate()
+        private async void CustomGenerate()
         {
             LeagueVersion newVersion;
             try
@@ -51,7 +56,14 @@ namespace SquadForger.ViewModel
                 MessageBox.Show($"Invalid league version!");
                 return;
             }
-            GetChampionNames(newVersion);
+            await GetChampionNames(newVersion);
+
+            //Generate champions for each team
+            foreach (var team in Teams)
+            {
+                team.ChampionNames = _randomPicker.GetRandom(_championNames, 15);
+                team.ChampionNames.Sort();
+            }
         }
 
         private async void GetFallBackChampionNames()
@@ -86,7 +98,7 @@ namespace SquadForger.ViewModel
             _championNames.AddRange(temp);
         }
 
-        private async void GetChampionNames(LeagueVersion leagueVersion)
+        private async Task GetChampionNames(LeagueVersion leagueVersion)
         {
             if (_lastVersionUsed.Season == leagueVersion.Season && 
                 _lastVersionUsed.PatchNumber == leagueVersion.PatchNumber && 

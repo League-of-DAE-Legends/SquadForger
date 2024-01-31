@@ -19,9 +19,16 @@
 			<RowDefinition/>
 			<RowDefinition MaxHeight="50"/>
 		</Grid.RowDefinitions>
+		<StackPanel>
+			
+		</StackPanel>
 		<ScrollViewer Background="#B3CCE6">
 			<TextBlock Text="{Binding TextToSend}" Margin="10"/>
 		</ScrollViewer>
-		<Button Command="{Binding PostToDiscordCommand}" Content="Send to discord" Grid.Row="1" Height="40" Width="100"/>
+		<StackPanel Grid.Row="1" Orientation="Horizontal">
+			<Button Command="{Binding UpdatePreviewCommand}" Content="Update Preview"  Height="40" Width="100"/>
+			<Button Command="{Binding PostToDiscordCommand}" Content="Send to discord" Height="40" Width="100"/>
+		</StackPanel>
+		
 	</Grid>
 </Page>

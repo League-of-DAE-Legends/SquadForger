@@ -134,6 +134,9 @@
     <Compile Include="Model\Team.cs" />
     <Compile Include="Repository\CSVTeamsParser.cs" />
     <Compile Include="Repository\ITeamNamesRepository.cs" />
+    <Compile Include="Services\EventAggregator.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="Services\TeamsUpdatedEvent.cs" />
     <Compile Include="ViewModel\DiscordVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SquadVM.cs" />
