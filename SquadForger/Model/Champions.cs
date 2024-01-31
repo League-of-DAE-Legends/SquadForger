@@ -16,7 +16,10 @@ namespace SquadForger.Model
 
             try
             {
-                using (StreamReader reader = new StreamReader("../../Resources/champion.json"))
+	            string assemblyPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+	            string assemblyDirectory = Path.GetDirectoryName(assemblyPath);
+	            string jsonFilePath = Path.Combine(assemblyDirectory, @"Resources\champion.json");
+                using (StreamReader reader = new StreamReader(jsonFilePath))
                 {
                     string json = await reader.ReadToEndAsync();
                     Champions champions = JsonConvert.DeserializeObject<Champions>(json);
