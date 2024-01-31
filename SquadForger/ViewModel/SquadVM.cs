@@ -17,7 +17,7 @@ namespace SquadForger.ViewModel
 
         public RelayCommand AddTeamsCommand { get; private set; }
         public RelayCommand ClearTeamsCommand { get; private set; }
-        private ITeamNamesRepository TeamNamesRepository { get; set; } = new CsvChallongeParser();
+        private ITeamNamesRepository TeamNamesRepository { get; set; } = new CSVTeamsParser();
         public string TeamsInput { get; set; }
 
         public SquadVM()
@@ -30,6 +30,9 @@ namespace SquadForger.ViewModel
 
         private void ReadTeamsFromCsv()
         {
+            if (!(TeamNamesRepository is CSVTeamsParser csvParser)) return;
+            csvParser.ColumnName = "Participant Username";
+            
             foreach (Team team in TeamNamesRepository.GetTeams())
             {
                 Teams.Add(team);
