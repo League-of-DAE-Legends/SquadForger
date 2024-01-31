@@ -127,11 +127,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Team.cs" />
-    <Compile Include="Repository\CsvChallongeParser.cs" />
+    <Compile Include="Repository\CSVTeamsParser.cs" />
     <Compile Include="Repository\ITeamNamesRepository.cs" />
+    <Compile Include="ViewModel\DiscordVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SquadVM.cs" />
     <Compile Include="ViewModel\VisualizeVM.cs" />
+    <Compile Include="View\DiscordView.xaml.cs">
+      <DependentUpon>DiscordView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SquadView.xaml.cs">
       <DependentUpon>SquadView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +154,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DiscordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SquadView.xaml" />
     <Page Include="View\VisualizeView.xaml" />
   </ItemGroup>

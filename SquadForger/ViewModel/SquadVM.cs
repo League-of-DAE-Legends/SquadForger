@@ -14,10 +14,10 @@ namespace SquadForger.ViewModel
         public ObservableCollection<Team> Teams { get; private set; } = new ObservableCollection<Team>();
         
         public RelayCommand SelectFileCommand { get; private set; }
+
         public RelayCommand AddTeamsCommand { get; private set; }
         public RelayCommand ClearTeamsCommand { get; private set; }
         private ITeamNamesRepository TeamNamesRepository { get; set; } = new CsvChallongeParser();
-        
         public string TeamsInput { get; set; }
 
         public SquadVM()
