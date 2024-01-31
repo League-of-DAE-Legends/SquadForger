@@ -23,8 +23,8 @@
                 <Frame Content="{Binding VisualizePage}" NavigationUIVisibility="Hidden" />
             </TabItem>
             <TabItem Header = "Post to Discord" Background="LightGray">
-                <Label Content="Post to Discord page comes here"/>
-            </TabItem>
+				<Frame Content="{Binding DiscordPage}" NavigationUIVisibility="Hidden"/>
+			</TabItem>
             <TabItem Header="Info" Background="LightGray">
                 <TextBlock Margin="10">
                     <TextBlock Text="Github repository: "/>

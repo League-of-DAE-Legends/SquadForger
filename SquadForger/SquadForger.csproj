@@ -62,6 +62,7 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -104,6 +105,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -124,13 +126,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+
     <Compile Include="Model\Champions.cs" />
     <Compile Include="Model\LeagueVersion.cs" />
     <Compile Include="Repository\DefaultChampionPicker.cs" />
     <Compile Include="Repository\IRandomPicker.cs" />
+    <Compile Include="Model\Team.cs" />
+    <Compile Include="Repository\CSVTeamsParser.cs" />
+    <Compile Include="Repository\ITeamNamesRepository.cs" />
+    <Compile Include="ViewModel\DiscordVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SquadVM.cs" />
     <Compile Include="ViewModel\VisualizeVM.cs" />
+    <Compile Include="View\DiscordView.xaml.cs">
+      <DependentUpon>DiscordView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SquadView.xaml.cs">
       <DependentUpon>SquadView.xaml</DependentUpon>
     </Compile>
@@ -149,6 +159,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DiscordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SquadView.xaml" />
     <Page Include="View\VisualizeView.xaml" />
   </ItemGroup>

@@ -11,6 +11,7 @@ namespace SquadForger.ViewModel
         public RelayCommand OpenGithubRepoCommand { get; private set; }
         public SquadView SquadPage { get; private set; } = new SquadView();
         public VisualizeView VisualizePage { get; private set; } = new VisualizeView();
+        public DiscordView DiscordPage { get; private set; } = new DiscordView();
 
         public MainVM()
         {
