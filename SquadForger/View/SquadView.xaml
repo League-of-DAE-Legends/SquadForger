@@ -34,8 +34,8 @@
                 <Button Content="Safe Generate" Margin="10"></Button>
             </TextBlock>
             <TextBlock>
-                <TextBox  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Width="230" Text="Enter valid season and patch (ie 14.1.1)" Height="30" Margin="10"></TextBox>
-                <Button Content="Custom Generate" Margin="10" Height="30"></Button>
+                <TextBox  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Width="230" Text="{Binding LeagueVersionText}" Height="30" Margin="10"/>
+                <Button Content="Custom Generate" Margin="10" Height="30" Command="{Binding CustomGenerateCommand}"/>
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" HorizontalAlignment="Center">

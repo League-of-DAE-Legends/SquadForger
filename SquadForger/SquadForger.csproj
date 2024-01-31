@@ -126,6 +126,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+
+    <Compile Include="Model\Champions.cs" />
+    <Compile Include="Model\LeagueVersion.cs" />
+    <Compile Include="Repository\DefaultChampionPicker.cs" />
+    <Compile Include="Repository\IRandomPicker.cs" />
     <Compile Include="Model\Team.cs" />
     <Compile Include="Repository\CSVTeamsParser.cs" />
     <Compile Include="Repository\ITeamNamesRepository.cs" />
