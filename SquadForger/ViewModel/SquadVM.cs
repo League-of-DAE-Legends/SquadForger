@@ -29,6 +29,7 @@ namespace SquadForger.ViewModel
         private LeagueVersion _lastVersionUsed;
 
         public RelayCommand CustomGenerateCommand { get; private set; }
+        public RelayCommand SafeGenerateCommand { get; private set; }
         public string LeagueVersionText { get; set; } = "Enter valid season and patch (ie 14.1.1)";
 
         private readonly IRandomPicker _randomPicker = new DefaultChampionPicker();
@@ -40,25 +41,14 @@ namespace SquadForger.ViewModel
             ClearTeamsCommand = new RelayCommand(ClearTeams);
             TeamsInput = "Enter team names, separated by commas";
             CustomGenerateCommand = new RelayCommand(CustomGenerate);
+            SafeGenerateCommand = new RelayCommand(SafeGenerate);
 
             Teams.CollectionChanged += (s, e) => ServiceLocator.Instance.EventAggregator.Publish(new TeamsUpdatedEvent(Teams.ToList()));
            // GetFallBackChampionNames();
         }
 
-        private async void CustomGenerate()
+        private void GenerateChampionsPerTeam()
         {
-            LeagueVersion newVersion;
-            try
-            {
-                newVersion = LeagueVersionText.ParseIntoLeagueVersion();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show($"Invalid league version!");
-                return;
-            }
-            await GetChampionNames(newVersion);
-            
             try
             {
                 int amount = int.Parse(AmountChampsInput);
@@ -73,10 +63,30 @@ namespace SquadForger.ViewModel
             {
                 Console.WriteLine(e);
             }
+        }
+        private async void SafeGenerate()
+        {
+            await GetFallBackChampionNames();
+            GenerateChampionsPerTeam();
             
         }
+        private async void CustomGenerate()
+        {
+            LeagueVersion newVersion;
+            try
+            {
+                newVersion = LeagueVersionText.ParseIntoLeagueVersion();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Invalid league version!");
+                return;
+            }
+            await GetChampionNames(newVersion);
+            GenerateChampionsPerTeam();
+        }
 
-        private async void GetFallBackChampionNames()
+        private async Task GetFallBackChampionNames()
         {
             if (_lastVersionUsed.Season == -1 &&
                 _lastVersionUsed.PatchNumber == -1 &&
