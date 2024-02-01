@@ -28,14 +28,13 @@ namespace SquadForger.ViewModel
         private LeagueVersion _lastVersionUsed;
 
         public RelayCommand CustomGenerateCommand { get; private set; }
-        public string LeagueVersionText { get; set; } = "Enter valid season and patch (ie 14.1.1)";
+        public string LeagueVersionText { get; set; }
 
         public SquadVM()
         {
             SelectFileCommand = new RelayCommand(ReadTeamsFromCsv);
             AddTeamsCommand = new RelayCommand(AddTeams);
             ClearTeamsCommand = new RelayCommand(ClearTeams);
-            TeamsInput = "Enter team names, separated by commas";
             CustomGenerateCommand = new RelayCommand(CustomGenerate);
 
             GetFallBackChampionNames();

@@ -5,12 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:SquadForger.View"
       xmlns:vm="clr-namespace:SquadForger.ViewModel"
+      xmlns:converter="clr-namespace:SquadForger.Converter"
       mc:Ignorable="d"
       d:DesignWidth="800" d:DesignHeight="450"
       Title="Squad View">
     <Page.DataContext>
         <vm:SquadVM/>
     </Page.DataContext>
+    <Page.Resources>
+        <converter:TextToVisibilityConverter x:Key="TextToVisibilityConverter"/>
+    </Page.Resources>
     <Page.Background>
         <SolidColorBrush Color="SlateGray"/>
     </Page.Background>
@@ -25,7 +29,12 @@
                 <Button Content="Select file" Margin="10" Width="100" Command="{Binding SelectFileCommand}"></Button>
             </TextBlock>
             <TextBlock VerticalAlignment="Center">
-                <TextBox TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding TeamsInput}" Height="200" Width="200" Margin="10"></TextBox>
+                <Grid>
+                    <TextBox x:Name="TeamsTextBox" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding TeamsInput}" Height="200" Width="200" Margin="10"></TextBox>
+                    <TextBlock Text="Enter team names separated by ," Margin="10,10,0,0" Foreground="Gray" TextWrapping="Wrap"
+                               IsHitTestVisible="False"
+                               Visibility="{Binding Text, ElementName=TeamsTextBox, Converter={StaticResource TextToVisibilityConverter}}"/>
+                </Grid>
                 <Button Content="Add" Margin="10" Width="50" Height="30" Command="{Binding AddTeamsCommand}"></Button>
                 <Button Content="Clear" Margin="10" Width="50" Height="30" Command="{Binding ClearTeamsCommand}"/>
             </TextBlock>
@@ -34,7 +43,12 @@
                 <Button Content="Safe Generate" Margin="10"></Button>
             </TextBlock>
             <TextBlock>
-                <TextBox  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Width="230" Text="{Binding LeagueVersionText}" Height="30" Margin="10"/>
+                <Grid>
+                    <TextBox x:Name="VersionTextBox" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Width="230" Height="30" Margin="10" Text="{Binding LeagueVersionText}"/>
+                    <TextBlock Text="Enter valid season and patch (ie 14.1.1)" Margin="10,10,0,0" Foreground="Gray"
+                               IsHitTestVisible="False"
+                               Visibility="{Binding Text, ElementName=VersionTextBox, Converter={StaticResource TextToVisibilityConverter}}"/>
+                </Grid>
                 <Button Content="Custom Generate" Margin="10" Height="30" Command="{Binding CustomGenerateCommand}"/>
             </TextBlock>
         </StackPanel>
