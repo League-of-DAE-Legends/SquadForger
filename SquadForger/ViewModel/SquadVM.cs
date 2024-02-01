@@ -23,6 +23,7 @@ namespace SquadForger.ViewModel
         public RelayCommand ClearTeamsCommand { get; private set; }
         private ITeamNamesRepository TeamNamesRepository { get; set; } = new CSVTeamsParser();
         public string TeamsInput { get; set; }
+        public string AmountChampsInput { get; set; } = "15";
 
         private readonly List<string> _championNames = new List<string>();
         private LeagueVersion _lastVersionUsed;
@@ -30,7 +31,7 @@ namespace SquadForger.ViewModel
         public RelayCommand CustomGenerateCommand { get; private set; }
         public string LeagueVersionText { get; set; } = "Enter valid season and patch (ie 14.1.1)";
 
-        private IRandomPicker _randomPicker = new DefaultChampionPicker();
+        private readonly IRandomPicker _randomPicker = new DefaultChampionPicker();
 
         public SquadVM()
         {
@@ -57,13 +58,22 @@ namespace SquadForger.ViewModel
                 return;
             }
             await GetChampionNames(newVersion);
-
-            //Generate champions for each team
-            foreach (var team in Teams)
+            
+            try
             {
-                team.ChampionNames = _randomPicker.GetRandom(_championNames, 15);
-                team.ChampionNames.Sort();
+                int amount = int.Parse(AmountChampsInput);
+                //Generate champions for each team
+                foreach (var team in Teams)
+                {
+                    team.ChampionNames = _randomPicker.GetRandom(_championNames, amount);
+                    team.ChampionNames.Sort();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
         }
 
         private async void GetFallBackChampionNames()
