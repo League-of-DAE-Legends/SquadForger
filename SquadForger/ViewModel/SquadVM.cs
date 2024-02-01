@@ -164,6 +164,8 @@ namespace SquadForger.ViewModel
 
         private void AddTeams()
         {
+            if (TeamsInput == null) return;
+            if (!TeamsInput.Any()) return;
             // Split the input by commas and remove empty entries
             List<string> teamNames = TeamsInput.Split(',').Select(s => s.Trim()).Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
 
