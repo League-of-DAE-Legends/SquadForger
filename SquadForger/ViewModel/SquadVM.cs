@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SquadForger.Model;
-using System;
-using System.Collections.Generic;
-using System.Windows;
 using SquadForger.Repository;
+using SquadForger.Services;
 
 
 namespace SquadForger.ViewModel
@@ -23,12 +23,18 @@ namespace SquadForger.ViewModel
         public RelayCommand ClearTeamsCommand { get; private set; }
         private ITeamNamesRepository TeamNamesRepository { get; set; } = new CSVTeamsParser();
         public string TeamsInput { get; set; }
+        public string AmountChampsInput { get; set; } = "15";
 
         private readonly List<string> _championNames = new List<string>();
         private LeagueVersion _lastVersionUsed;
 
         public RelayCommand CustomGenerateCommand { get; private set; }
         public string LeagueVersionText { get; set; }
+        public RelayCommand SafeGenerateCommand { get; private set; }
+        
+
+
+        private readonly IRandomPicker _randomPicker = new DefaultChampionPicker();
 
         public SquadVM()
         {
@@ -36,11 +42,36 @@ namespace SquadForger.ViewModel
             AddTeamsCommand = new RelayCommand(AddTeams);
             ClearTeamsCommand = new RelayCommand(ClearTeams);
             CustomGenerateCommand = new RelayCommand(CustomGenerate);
+            SafeGenerateCommand = new RelayCommand(SafeGenerate);
 
-            GetFallBackChampionNames();
+            Teams.CollectionChanged += (s, e) => ServiceLocator.Instance.EventAggregator.Publish(new TeamsUpdatedEvent(Teams.ToList()));
+           // GetFallBackChampionNames();
         }
 
-        private void CustomGenerate()
+        private void GenerateChampionsPerTeam()
+        {
+            try
+            {
+                int amount = int.Parse(AmountChampsInput);
+                //Generate champions for each team
+                foreach (var team in Teams)
+                {
+                    team.ChampionNames = _randomPicker.GetRandom(_championNames, amount);
+                    team.ChampionNames.Sort();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+        private async void SafeGenerate()
+        {
+            await GetFallBackChampionNames();
+            GenerateChampionsPerTeam();
+            
+        }
+        private async void CustomGenerate()
         {
             LeagueVersion newVersion;
             try
@@ -52,10 +83,11 @@ namespace SquadForger.ViewModel
                 MessageBox.Show($"Invalid league version!");
                 return;
             }
-            GetChampionNames(newVersion);
+            await GetChampionNames(newVersion);
+            GenerateChampionsPerTeam();
         }
 
-        private async void GetFallBackChampionNames()
+        private async Task GetFallBackChampionNames()
         {
             if (_lastVersionUsed.Season == -1 &&
                 _lastVersionUsed.PatchNumber == -1 &&
@@ -87,7 +119,7 @@ namespace SquadForger.ViewModel
             _championNames.AddRange(temp);
         }
 
-        private async void GetChampionNames(LeagueVersion leagueVersion)
+        private async Task GetChampionNames(LeagueVersion leagueVersion)
         {
             if (_lastVersionUsed.Season == leagueVersion.Season && 
                 _lastVersionUsed.PatchNumber == leagueVersion.PatchNumber && 

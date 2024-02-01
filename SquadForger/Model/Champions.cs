@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -16,7 +17,10 @@ namespace SquadForger.Model
 
             try
             {
-                using (StreamReader reader = new StreamReader("../../Resources/champion.json"))
+	            var assembly = Assembly.GetExecutingAssembly();
+	            var resourceName = "SquadForger.Resources.champion.json"; 
+	            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                using (StreamReader reader = new StreamReader(stream))
                 {
                     string json = await reader.ReadToEndAsync();
                     Champions champions = JsonConvert.DeserializeObject<Champions>(json);
