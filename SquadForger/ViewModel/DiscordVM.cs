@@ -4,7 +4,12 @@ using Discord.Webhook;
 using CommunityToolkit.Mvvm.Input;
 using System.Configuration;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
+using SquadForger.Model;
+using SquadForger.Services;
 
 namespace SquadForger.ViewModel
 {
@@ -17,15 +22,32 @@ namespace SquadForger.ViewModel
 			private set { _textToSend = value; OnPropertyChanged(nameof(TextToSend)); }
 		}
 		public RelayCommand PostToDiscordCommand { get; private set; }
-
+		public RelayCommand UpdatePreviewCommand { get; private set; }
+		public List<Team> Teams { get; private set; } = new List<Team>();
 		public DiscordVM()
 		{
 			PostToDiscordCommand = new RelayCommand(PostToDiscord);
-
-			// Temporary!
-			TextToSend = "This is a test message";
+			UpdatePreviewCommand = new RelayCommand(UpdatePreview);
+			
+			ServiceLocator.Instance.EventAggregator.Subscribe<TeamsUpdatedEvent>(OnTeamsUpdated);
+		}
+		private void OnTeamsUpdated(TeamsUpdatedEvent eventArgs)
+		{
+			Teams = eventArgs.Teams;
 		}
 
+		private void UpdatePreview()
+		{
+			var stringBuilder = new StringBuilder();
+
+			foreach (var team in Teams)
+			{
+				stringBuilder.Append(team.FormatTeamInfo());
+				stringBuilder.AppendLine(); // Add an extra line between teams
+			}
+
+			TextToSend = stringBuilder.ToString();
+		}
 		private async void PostToDiscord()
 		{
 			if (TextToSend.Equals("<empty>"))
