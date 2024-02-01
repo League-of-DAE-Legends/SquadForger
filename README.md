@@ -4,10 +4,10 @@ Resolve the no rerolls issue in custom ARAM games with this handy tool! This Git
 
 ## Features:
 
-- **Champion Pool Generation:** Automatically creates a diverse pool of 15 champions for each team participating in the custom ARAM game.
+- **Champion Pool Generation:** Automatically creates a diverse pool of X amount of champions for each team participating in the custom ARAM game.
 - **Discord Integration:** Streamlines communication by posting the generated champion pools directly to a designated Discord channel, allowing teams to review and deliberate on their choices.
 
-## Project setup
+## Project setup: Extending the functionality
 
 If you would like to use SquadForger's Discord integration, you must integrate your own Discord Webhook into the project. You can achieve that by doing the following: 
 1. Create a `PrivateData.config` file in your directory
@@ -21,6 +21,8 @@ If you would like to use SquadForger's Discord integration, you must integrate y
 3. Set the `Copy to output directory` property to `Copy always`
 
 ![Gif3](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/e61f07ed-4135-4d18-baa5-7efd4e6adb3e)
+
+From this point on the project is ready to be extended :)
 
 ## Usage:
 
