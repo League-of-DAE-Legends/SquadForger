@@ -19,9 +19,6 @@
             <TabItem Header = "Squads" Background="LightGray">
                 <Frame Content="{Binding SquadPage}" NavigationUIVisibility="Hidden" />
             </TabItem>
-            <TabItem Header = "Visualizer" Background="LightGray">
-                <Frame Content="{Binding VisualizePage}" NavigationUIVisibility="Hidden" />
-            </TabItem>
             <TabItem Header = "Post to Discord" Background="LightGray">
 				<Frame Content="{Binding DiscordPage}" NavigationUIVisibility="Hidden"/>
 			</TabItem>

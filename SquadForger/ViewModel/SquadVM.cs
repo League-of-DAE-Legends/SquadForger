@@ -29,8 +29,10 @@ namespace SquadForger.ViewModel
         private LeagueVersion _lastVersionUsed;
 
         public RelayCommand CustomGenerateCommand { get; private set; }
+        public string LeagueVersionText { get; set; }
         public RelayCommand SafeGenerateCommand { get; private set; }
-        public string LeagueVersionText { get; set; } = "Enter valid season and patch (ie 14.1.1)";
+        
+
 
         private readonly IRandomPicker _randomPicker = new DefaultChampionPicker();
 
@@ -39,7 +41,6 @@ namespace SquadForger.ViewModel
             SelectFileCommand = new RelayCommand(ReadTeamsFromCsv);
             AddTeamsCommand = new RelayCommand(AddTeams);
             ClearTeamsCommand = new RelayCommand(ClearTeams);
-            TeamsInput = "Enter team names, separated by commas";
             CustomGenerateCommand = new RelayCommand(CustomGenerate);
             SafeGenerateCommand = new RelayCommand(SafeGenerate);
 
@@ -163,6 +164,8 @@ namespace SquadForger.ViewModel
 
         private void AddTeams()
         {
+            if (TeamsInput == null) return;
+            if (!TeamsInput.Any()) return;
             // Split the input by commas and remove empty entries
             List<string> teamNames = TeamsInput.Split(',').Select(s => s.Trim()).Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
 

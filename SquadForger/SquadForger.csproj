@@ -126,6 +126,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\TextToVisibilityConverter.cs" />
 
     <Compile Include="Model\Champions.cs" />
     <Compile Include="Model\LeagueVersion.cs" />
@@ -140,15 +141,11 @@
     <Compile Include="ViewModel\DiscordVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SquadVM.cs" />
-    <Compile Include="ViewModel\VisualizeVM.cs" />
     <Compile Include="View\DiscordView.xaml.cs">
       <DependentUpon>DiscordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SquadView.xaml.cs">
       <DependentUpon>SquadView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\VisualizeView.xaml.cs">
-      <DependentUpon>VisualizeView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -167,7 +164,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SquadView.xaml" />
-    <Page Include="View\VisualizeView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
