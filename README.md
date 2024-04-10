@@ -1,11 +1,11 @@
 # SquadForge - ARAM Team Builder for League of Legends
 
-Resolve the no rerolls issue in custom ARAM games with this handy tool! This GitHub repository houses a C#-based solution that takes the teams participating in a custom ARAM match as input and dynamically generates a curated pool of 15 champions for each team. The generated champion pools are then seamlessly shared on Discord, facilitating efficient decision-making among team members.
+Resolve the no rerolls issue in custom ARAM games with this tool! This GitHub repository houses a C#-based solution that takes the teams participating in a custom ARAM match as input and dynamically generates a pool of 15 champions for each team. The generated champion pools are then displayed and can be shared on Discord.
 
 ## Features:
 
-- **Champion Pool Generation:** Automatically creates a diverse pool of X amount of champions for each team participating in the custom ARAM game.
-- **Discord Integration:** Streamlines communication by posting the generated champion pools directly to a designated Discord channel, allowing teams to review and deliberate on their choices.
+- **Champion Pool Generation:** Automatically generate X amount of champions for each team.
+- **Discord Integration:** Post the generated champion pools directly to a designated Discord channel.
 
 ## Project setup: Extending the functionality
 
