@@ -26,8 +26,30 @@ From this point on the project is ready to be extended :)
 
 ## Usage:
 
-1. Input the participating teams.
-2. Run the script to generate champion pools.
-3. Discord integration automatically shares the pools.
-4. Teams discuss and finalize their 5 chosen champions.
-5. Enter the blind pick ARAM lobby and enjoy the game!
+### 1. Input the participating teams.
+This can be done manually, or by parsing a csv. Currently we have 1 simple version of CSV parser, but you can add your own parser by implementing ```ITeamNamesRepository``` interface.
+This is what our ```CSVTeamParser.cs``` can handle:
+![image](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/11b3f6a5-50be-4df0-bb64-fa4879677bc5)
+
+Very simple :)
+
+![Gif3](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/73ade216-d078-4258-b2ca-eb73419a3787)
+
+
+### 2. Run the script to generate champion pools.
+Here we have 2 options:
+
+**Safe Generate**
+- Uses a local json that contains info about the champions. (Up to date with patch 14.1.1)
+
+**Custom Generate**
+- Gets the champion info directly from Riot's Data Dragons. Take a look at the [Data Dragons](https://developer.riotgames.com/docs/lol) documentation for more info.
+- Needs a valid patch number to do so
+
+![Gif3](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/1473c960-2998-4f26-aa63-606f67d53c36)
+
+### 3. Discord integration automatically shares the pools.
+- If you didn't specify a Discord webhook in ```PrivateData.config```, then this will do nothing
+- If you did specify this, ```Send to Discord``` button will produce the following result:
+
+![image](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/ab73f3d0-e9ec-4451-8ef2-679b9dbc859c)
