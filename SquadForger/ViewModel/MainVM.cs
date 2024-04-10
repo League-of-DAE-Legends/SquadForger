@@ -7,7 +7,7 @@ namespace SquadForger.ViewModel
 {
     public class MainVM : ObservableObject
     {
-        public string WindowTitle { get; private set; } = $"Squad Forger v0.0.1";
+        public string WindowTitle { get; private set; } = $"Squad Forger v1.0.1";
         public RelayCommand OpenGithubRepoCommand { get; private set; }
         public SquadView SquadPage { get; private set; } = new SquadView();
         public DiscordView DiscordPage { get; private set; } = new DiscordView();
