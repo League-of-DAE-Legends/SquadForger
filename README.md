@@ -21,7 +21,8 @@ This is what our ```CSVTeamParser.cs``` can handle:
 
 Very simple :)
 
-![Gif3](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/73ade216-d078-4258-b2ca-eb73419a3787)
+![Gif3](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/8c693f03-9d70-4a44-acb6-b2cff3f226af)
+
 
 
 ### 4. Run the script to generate champion pools.
@@ -34,7 +35,8 @@ Here we have 2 options:
 - Gets the champion info directly from Riot's Data Dragons. Take a look at the [Data Dragons](https://developer.riotgames.com/docs/lol) documentation for more info.
 - Needs a valid patch number to do so
 
-![Gif3](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/1473c960-2998-4f26-aa63-606f67d53c36)
+![Gif3](https://github.com/League-of-DAE-Legends/SquadForger/assets/88614889/4452e50b-61bd-4c55-89af-974c99327cbc)
+
 
 ### 5. Discord integration automatically shares the pools.
 - If you didn't specify a Discord webhook in ```PrivateData.config```, then this will do nothing
