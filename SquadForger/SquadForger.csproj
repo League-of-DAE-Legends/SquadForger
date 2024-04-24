@@ -274,6 +274,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Theme\MenuButtonTheme.xaml" />
+    <Page Include="Theme\TextBoxTheme.xaml" />
     <Page Include="View\DiscordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

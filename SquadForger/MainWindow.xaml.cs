@@ -26,5 +26,32 @@ namespace SquadForger
             InitializeComponent();
             //var webhookId =  ConfigurationManager.AppSettings["dev_webhook"];
         }
+
+        private void CloseApp(object sender, MouseButtonEventArgs e)
+        {
+            Close();
+        }
+
+        private void minimizeApp(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "https://github.com/League-of-DAE-Legends/SquadForger",
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                // Handle the error (optional)
+                MessageBox.Show("Failed to open URL: " + ex.Message);
+            }
+        }
     }
 }

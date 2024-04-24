@@ -5,7 +5,7 @@ namespace SquadForger.View
 	/// <summary>
 	/// Interaction logic for DiscordView.xaml
 	/// </summary>
-	public partial class DiscordView : Page
+	public partial class DiscordView : UserControl
 	{
 		public DiscordView()
 		{
