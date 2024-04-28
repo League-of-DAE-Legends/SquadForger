@@ -50,6 +50,11 @@ namespace SquadForger.ViewModel
 
         private void GenerateChampionsPerTeam()
         {
+            if (Teams.Count == 0)
+            {
+                MessageBox.Show("Team count is 0");
+                return;
+            }
             try
             {
                 int amount = int.Parse(AmountChampsInput);
@@ -59,10 +64,11 @@ namespace SquadForger.ViewModel
                     team.ChampionNames = _randomPicker.GetRandom(_championNames, amount);
                     team.ChampionNames.Sort();
                 }
+                MessageBox.Show("Teams generated successfully. Proceed to Discord Tab!");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                MessageBox.Show(e.Message);
             }
         }
         private async void SafeGenerate()

@@ -60,10 +60,11 @@ namespace SquadForger.ViewModel
 				string webhooklink = ConfigurationManager.AppSettings.Get("dev_webhook");
 				DiscordWebhookClient webhook = new DiscordWebhookClient(webhooklink);
 				await webhook.SendMessageAsync(TextToSend);
+				MessageBox.Show("Teams posted to discord successfully!");
             }
 			catch (Exception e)
             {
-				MessageBox.Show($"Exception: {e.Message}");
+                MessageBox.Show($"Exception: {e.Message}\nCouldn't post to discord");
             }
 		}
 

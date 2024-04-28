@@ -53,5 +53,12 @@ namespace SquadForger
                 MessageBox.Show("Failed to open URL: " + ex.Message);
             }
         }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            this.DragMove();
+        }
     }
 }
