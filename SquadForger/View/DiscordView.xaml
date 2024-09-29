@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SquadForger.View"
+      xmlns:components = "clr-namespace:SquadForger.Components"
 	  xmlns:vm="clr-namespace:SquadForger.ViewModel"
       mc:Ignorable="d" 
       Background="Transparent"
@@ -73,6 +74,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition/>
 			<RowDefinition MaxHeight="50"/>
+            <RowDefinition MaxHeight="50"/>
 		</Grid.RowDefinitions>
 		<StackPanel>
 			
@@ -93,13 +95,26 @@
                     Margin="0,0,10,0"
                     Background="#e3c57e"
                     Foreground="black"/>
-			<Button Command="{Binding PostToDiscordCommand}"
+			<Button Style="{DynamicResource DiscordViewButtonTemplate}" Command="{Binding PostToDiscordCommand}"
                     Content="Send to discord"
                     Height="40" 
                     Width="100"
                     Background="#e3c57e"
                     Foreground="black"/>
+           
+            
 		</StackPanel>
-		
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+          
+            <components:BindabalePasswordBox Password="{Binding WebhookID,UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
+            <Button Style="{DynamicResource DiscordViewButtonTemplate}" Command="{Binding UpdateWebhookIDCommand}"
+                    Content="Update Webhook ID"
+                    Height="40" 
+                    Width="140"
+                    Background="#e3c57e"
+                    Foreground="black"/>
+            
+        </StackPanel>
+       
 	</Grid>
 </UserControl>
