@@ -6,8 +6,11 @@ using System.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Xml;
 using SquadForger.Model;
 using SquadForger.Services;
 
@@ -23,12 +26,14 @@ namespace SquadForger.ViewModel
 		}
 		public RelayCommand PostToDiscordCommand { get; private set; }
 		public RelayCommand UpdatePreviewCommand { get; private set; }
+		public RelayCommand UpdateWebhookIDCommand { get; private set; }
 		public List<Team> Teams { get; private set; } = new List<Team>();
+		public string WebhookID { get; set; } = "";
 		public DiscordVM()
 		{
 			PostToDiscordCommand = new RelayCommand(PostToDiscord);
 			UpdatePreviewCommand = new RelayCommand(UpdatePreview);
-			
+			UpdateWebhookIDCommand = new RelayCommand(UpdateWebhookID);
 			ServiceLocator.Instance.EventAggregator.Subscribe<TeamsUpdatedEvent>(OnTeamsUpdated);
 		}
 		private void OnTeamsUpdated(TeamsUpdatedEvent eventArgs)
@@ -48,6 +53,51 @@ namespace SquadForger.ViewModel
 
 			TextToSend = stringBuilder.ToString();
 		}
+
+		private void UpdateWebhookID()
+		{
+			if (string.IsNullOrEmpty(WebhookID))
+			{
+				MessageBox.Show("Webhook ID is empty!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			
+			string discordWebhookPattern = @"^https:\/\/discord\.com\/api\/webhooks\/\d+\/[A-Za-z0-9_-]+$";
+			if (!Regex.IsMatch(WebhookID, discordWebhookPattern))
+			{
+				MessageBox.Show("Invalid Webhook ID format. Please provide a valid Discord Webhook URL.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			UpdateWebhookInConfig(WebhookID);
+		}
+
+		private void UpdateWebhookInConfig( string newWebhookID)
+		{
+			string configFilePath = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
+
+			// Step 1: Load the app.config file
+			XmlDocument xmlDoc = new XmlDocument();
+			xmlDoc.Load(configFilePath);
+
+			// Find the 'dev_webhook' node
+			XmlNode webhookNode = xmlDoc.SelectSingleNode("//appSettings/add[@key='dev_webhook']");
+
+			if (webhookNode != null)
+			{
+				// Update the webhook ID value
+				webhookNode.Attributes["value"].Value = newWebhookID;
+
+				// Save the updated config file
+				xmlDoc.Save(configFilePath);
+				ConfigurationManager.RefreshSection("appSettings");
+				MessageBox.Show("Webhook ID updated successfully in app.config!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+			else
+			{
+				MessageBox.Show("Webhook ID key not found in app.config.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
+		
 		private async void PostToDiscord()
 		{
 			if (TextToSend.Equals("<empty>"))
