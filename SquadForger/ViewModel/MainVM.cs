@@ -7,6 +7,8 @@ namespace SquadForger.ViewModel
 {
     public class MainVM : ObservableObject
     {
+        public static MainVM Instance { get; private set; }
+
         public string WindowTitle { get; private set; } = $"Squad Forger v1.1.1";
         
         public RelayCommand OpenGithubRepoCommand { get; private set; }
@@ -29,6 +31,8 @@ namespace SquadForger.ViewModel
 
         public MainVM()
         {
+            Instance = this;
+
             OpenGithubRepoCommand = new RelayCommand(OpenGithubRepo);
             SquadViewCommand = new RelayCommand(GoToSquadView);
             DiscordViewCommand = new RelayCommand(GoToDiscordView);
@@ -40,12 +44,12 @@ namespace SquadForger.ViewModel
             Process.Start(new ProcessStartInfo("https://github.com/League-of-DAE-Legends/SquadForger"));
         }
 
-        private void GoToSquadView()
+        public void GoToSquadView()
         {
             CurrentView = SquadView;
         }
 
-        private void GoToDiscordView()
+        public void GoToDiscordView()
         {
             CurrentView = DiscordView;
         }

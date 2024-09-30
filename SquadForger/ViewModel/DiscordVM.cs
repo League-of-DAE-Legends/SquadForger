@@ -39,6 +39,7 @@ namespace SquadForger.ViewModel
 		private void OnTeamsUpdated(TeamsUpdatedEvent eventArgs)
 		{
 			Teams = eventArgs.Teams;
+			UpdatePreview();
 		}
 
 		private void UpdatePreview()
