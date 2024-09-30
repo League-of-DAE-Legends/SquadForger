@@ -64,7 +64,8 @@ namespace SquadForger.ViewModel
                     team.ChampionNames = _randomPicker.GetRandom(_championNames, amount);
                     team.ChampionNames.Sort();
                 }
-                MessageBox.Show("Teams generated successfully. Proceed to Discord Tab!");
+                ServiceLocator.Instance.EventAggregator.Publish(new TeamsUpdatedEvent(Teams.ToList()));
+                MainVM.Instance.GoToDiscordView();
             }
             catch (Exception e)
             {
