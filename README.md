@@ -7,6 +7,9 @@ Resolve the no rerolls issue in custom ARAM games with this tool! This GitHub re
 - **Champion Pool Generation:** Automatically generate X amount of champions for each team.
 - **Discord Integration:** Post the generated champion pools directly to a designated Discord channel.
 
+## Demo:
+https://www.youtube.com/watch?v=LGZkNgp9FEg
+
 ## Usage:
 
 ### 1. Download the [Latest Release](https://github.com/League-of-DAE-Legends/SquadForger/releases/latest)
